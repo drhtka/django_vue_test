@@ -69,4 +69,4 @@ App.vue
 docker-compose up --build -d
 ```
 3. Open the Application
-   Click here to open the application on your ip  http://your_ip:8000.
+   Click here to open the application on your ip  http://your_ip:8000
