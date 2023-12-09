@@ -1,9 +1,6 @@
 # django_vue_test
 
-This template should help get you started developing with Vue 3 in Vite.
-
 ## Customize configuration
-
 
 ## Project Setup
 
