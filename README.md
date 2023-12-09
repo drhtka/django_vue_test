@@ -1,4 +1,4 @@
-# vue_test
+# django_vue_test
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -13,17 +13,26 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 ## Project Setup
 
 ```sh
-npm install
+docker-compose up --build -d
 ```
 
 ### Compile and Hot-Reload for Development
 
 ```sh
-npm run dev
+settings.py
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+    'http://...:8000',
+    'http://...:8080',
+]
 ```
 
 ### Compile and Minify for Production
 
 ```sh
-npm run build
+        return {
+            baseUrl: "http://...:8000",
+            posts: [],
+        };
 ```
