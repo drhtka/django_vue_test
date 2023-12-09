@@ -44,6 +44,7 @@
 settings.py
 
 CORS_ORIGIN_WHITELIST = [
+    ...
     'http://your_IP:8000',
     'http://your_IP:8080',
 ]
