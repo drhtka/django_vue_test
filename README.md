@@ -1,4 +1,4 @@
-# Full Stack Developer Test Task
+##  Full Stack Developer Test Task
 
 ### Functionality
 
@@ -33,9 +33,9 @@
     - Provide access to the Git repository with the final solution.
 
 
-## Submission Guidelines
+###  Submission Guidelines
 
-## Project Setup
+
 
 
 ### Create settings your IP http://your_IP:8000
@@ -61,7 +61,11 @@ App.vue
         posts: [],
     };
 ```
+### Running the Project
 
-```sh
+1. Navigate to the project root in the command line.
+
+2. Execute the following command to create and start the containers:
+```bash
 docker-compose up --build -d
 ```
