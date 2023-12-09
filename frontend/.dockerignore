@@ -1,0 +1,17 @@
+#**/node_modules
+#**/npm-debug.log
+#build
+#!nginx
+#!public
+#!src
+#!tests
+#!babel.config.js
+#!cypress.json
+#!package*.json
+#!package.json
+node_modules
+#dist
+*.log
+*.lock
+npm-debug.log
+yarn-error.log

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список постов</title>
+</head>
+<body>
+<h1>Список постов</h1>
+<ul id="postList"></ul>
+<form id="addPostForm">
+    <label for="postTitle">Заголовок поста:</label>
+    <input type="text" id="postTitle" name="postTitle" required>
+    <label for="postBody">Текст поста:</label>
+    <textarea id="postBody" name="postBody" required></textarea>
+    <button type="button" id="addPostButton">Добавить пост</button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const addPostForm = document.getElementById('addPostForm');
+        const postTitleInput = document.getElementById('postTitle');
+        const postBodyInput = document.getElementById('postBody');
+        // Вызываем функцию для получения списка постов при загрузке страницы
+        document.getElementById('addPostButton').addEventListener('click', function () {
+            const postTitle = postTitleInput.value.trim();
+            const postBody = postBodyInput.value.trim();
+            if (postTitle !== '' && postBody !== '') {
+                addPost(postTitle, postBody);
+                // Очистка полей формы после отправки данных
+                postTitleInput.value = '';
+                postBodyInput.value = '';
+            }
+        });
+
+        fetchPosts();
+
+        function fetchPosts() {
+            fetch('http://127.0.0.1:8001/api/posts/')
+                .then(response => response.json())
+                .then(data => {
+                    displayPosts(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching posts:', error);
+                });
+        }
+
+        function displayPosts(posts) {
+            const postList = document.getElementById('postList');
+            postList.innerHTML = '';
+
+            posts.forEach(post => {
+                const created_at = post.created_at
+                const dateObject = new Date(created_at)
+                //console.log('formattedDate', dateObject); // Вывод: "2023-12-05"
+                const year = dateObject.getFullYear();
+                const month = (dateObject.getMonth() + 1).toString().padStart(2, '0'); // Добавляем ноль, если месяц < 10
+                const day = dateObject.getDate().toString().padStart(2, '0'); // Добавляем ноль, если день < 10
+                // Собираем отформатированную строку "год-месяц-день"
+                // Получаем компоненты времени (часы, минуты)
+                const hours = dateObject.getHours().toString().padStart(2, '0'); // Добавляем ноль, если часы < 10
+                const minutes = dateObject.getMinutes().toString().padStart(2, '0'); // Добавляем ноль, если минуты < 10
+
+                const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}`;
+                //console.log('formattedDate', formattedDate); // Вывод: "2023-12-05"
+
+                const listItem = document.createElement('li');
+                listItem.textContent = `${post.title} - ${post.body} - ${formattedDate}`;
+                saveButton.dataset.postId = post.id;
+                postList.appendChild(listItem);
+                {#console.log('postList', postList)#}
+            });
+        }
+
+        function addPost(title, body) {
+            fetch('http://127.0.0.1:8001/api/create-post/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'), // Передайте CSRF-токен, если используете CSRF
+                },
+                body: JSON.stringify({
+                    {#user: '1',#}
+                    title: title,
+                    body: body,
+                }),
+            })
+                /*
+                .then(response => response.json())*/
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    fetchPosts(); // Обновляем список после добавления нового поста
+                    console.log('Результат запроса:', data);
+                })
+                .catch(error => {
+                    console.error('Error adding post:', error);
+                });
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+    });
+
+
+    // Кнопка для сохранения изменений
+    const saveButton = document.createElement('button');
+    saveButton.textContent = 'Сохранить';
+    saveButton.style.display = 'none'; // Изначально скрываем кнопку
+    saveButton.addEventListener('click', function () {
+        const updatedBody = textarea.value;
+
+        // Отправляем данные на сервер
+        fetch('http://127.0.0.1:8001/api/post-detail/' + post.id + '/', {
+            method: 'PATCH',  // Используйте PATCH для частичного обновления данных
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken'),
+            },
+            body: JSON.stringify({
+                body: updatedBody,
+            }),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Обновляем отображение после успешного ответа
+                textSpan.textContent = `${post.title} - ${updatedBody}`;
+                textSpan.style.display = 'inline-block';
+                textarea.style.display = 'none';
+                editButton.style.display = 'inline-block';
+                saveButton.style.display = 'none';
+            })
+            .catch(error => {
+                console.error('Error updating post:', error);
+            });
+    });
+
+</script>
+<script>
+    {#var baseUrl = window.location.origin;#}
+    {#var path = '/stripe_canceled_3dauth/';#}
+    {#window.location.href = baseUrl + path;#}
+    {#console.log('handleAction-fullUrl-397:',baseUrl + path);#}
+
+
+
+</script>
+</body>
+</html>
