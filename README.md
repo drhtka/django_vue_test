@@ -16,7 +16,7 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 docker-compose up --build -d
 ```
 
-### Compile and Hot-Reload for Development
+### Create settings your IP http://...:8000
 
 ```sh
 settings.py
@@ -28,7 +28,7 @@ CORS_ORIGIN_WHITELIST = [
 ]
 ```
 
-### Compile and Minify for Production
+### Create settings your IP http://...:8000
 
 ```sh
         return {
