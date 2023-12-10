@@ -20,7 +20,7 @@ export default {
 
     data() {
         return {
-            baseUrl: "http://192.168.181.135:8000",
+            baseUrl: "http://your_IP:8000",
             posts: [],
         };
     },
