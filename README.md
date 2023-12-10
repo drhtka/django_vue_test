@@ -38,10 +38,10 @@
 
 
 
-### Create settings your IP http://your_IP:8000
+### Create settings in settings.py your IP http://your_IP:8000
 
 ```sh
-settings.py
+## settings.py
 
 CORS_ORIGIN_WHITELIST = [
     ...
@@ -50,10 +50,10 @@ CORS_ORIGIN_WHITELIST = [
 ]
 ```
 
-### Create settings your IP http://your_IP:8000
+### Create settings in App.vue your IP http://your_IP:8000
 
 ```sh
-App.vue
+## App.vue
 
     return {
         baseUrl: "http://your_IP:8000",

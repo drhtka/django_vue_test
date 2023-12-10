@@ -145,8 +145,8 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:8000',
     'http://127.0.0.1:8001',
     'http://127.0.0.1:8000',
-    'http://your_IP:8000',
-    'http://your_IP:8080',
+    'http://192.168.181.135:8000',
+    'http://192.168.181.135:8080',
 ]
 
 import socket
